@@ -1,0 +1,85 @@
+/* DateSeparator Styles */
+.date-separator {
+  display: flex;
+  align-items: center;
+  margin: 20px 0;
+  padding: 0 16px;
+  opacity: 0.7;
+}
+
+.date-separator-line {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    var(--border-color, #e2e8f0) 20%,
+    var(--border-color, #e2e8f0) 80%,
+    transparent
+  );
+}
+
+.date-separator-text {
+  padding: 0 12px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-muted, #64748b);
+  background: var(--background, #ffffff);
+  border-radius: 12px;
+  white-space: nowrap;
+  text-transform: capitalize;
+}
+
+/* Dark mode */
+.dark .date-separator-line {
+  background: linear-gradient(
+    to right,
+    transparent,
+    var(--border-color-dark, #374151) 20%,
+    var(--border-color-dark, #374151) 80%,
+    transparent
+  );
+}
+
+.dark .date-separator-text {
+  color: var(--text-muted-dark, #9ca3af);
+  background: var(--background-dark, #1f2937);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .date-separator {
+    margin: 16px 0;
+    padding: 0 12px;
+  }
+  
+  .date-separator-text {
+    padding: 0 8px;
+    font-size: 11px;
+  }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .date-separator {
+    transition: none;
+  }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .date-separator-line {
+    background: linear-gradient(
+      to right,
+      transparent,
+      currentColor 20%,
+      currentColor 80%,
+      transparent
+    );
+    opacity: 0.5;
+  }
+  
+  .date-separator-text {
+    border: 1px solid currentColor;
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "name": "fullstack-project",
+  "version": "1.0.0",
+  "description": "Proyecto Full Stack con Node.js/Express y React",
+  "scripts": {
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "cd backend && npm run dev",
+    "client": "cd frontend && npm start",
+    "build": "cd frontend && npm run build",
+    "start": "cd backend && npm start",
+    "install-deps": "cd backend && npm install && cd ../frontend && npm install"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "keywords": ["fullstack", "react", "express", "nodejs"],
+  "author": "EzeDeAlla",
+  "license": "ISC"
+}
