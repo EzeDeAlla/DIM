@@ -94,14 +94,22 @@ export class SocketServer {
     socket.on(CLIENT_EVENTS.CONVERSATION_JOIN, (conversationId: string) => {
       const conversationRoom = ROOM_NAMES.conversation(conversationId);
       socket.join(conversationRoom);
-      console.log(`Usuario ${socket.data.userId} se unió a conversación ${conversationId}`);
+      console.log(`🔗 Usuario ${socket.data.userId} se unió a conversación ${conversationId} (room: ${conversationRoom})`);
+      
+      // Debug: verificar qué rooms tiene el socket
+      const rooms = Array.from(socket.rooms);
+      console.log(`📋 Rooms del usuario ${socket.data.userId}:`, rooms);
     });
 
     // Salir de una conversación
     socket.on(CLIENT_EVENTS.CONVERSATION_LEAVE, (conversationId: string) => {
       const conversationRoom = ROOM_NAMES.conversation(conversationId);
       socket.leave(conversationRoom);
-      console.log(`Usuario ${socket.data.userId} salió de conversación ${conversationId}`);
+      console.log(`🚪 Usuario ${socket.data.userId} salió de conversación ${conversationId} (room: ${conversationRoom})`);
+      
+      // Debug: verificar qué rooms tiene el socket después de salir
+      const rooms = Array.from(socket.rooms);
+      console.log(`📋 Rooms del usuario ${socket.data.userId} después de salir:`, rooms);
     });
   }
 

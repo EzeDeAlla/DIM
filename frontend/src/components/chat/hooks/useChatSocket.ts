@@ -109,13 +109,13 @@ export const useChatSocket = (): ChatSocketHook => {
 
     // Listener: message:new
     socketInstance.on('message:new', (message: MessageNew) => {
-      // console.log('🆕 Nuevo mensaje recibido:', message);
-      // console.log('🎯 Conversación actual:', currentConversationId.current);
-      // console.log('📨 Conversación del mensaje:', message.conversation_id);
-      // console.log('🔄 ¿Coinciden?:', currentConversationId.current === message.conversation_id);
+      console.log('🆕 Nuevo mensaje recibido:', message);
+      console.log('🎯 Conversación actual:', currentConversationId.current);
+      console.log('📨 Conversación del mensaje:', message.conversation_id);
+      console.log('🔄 ¿Coinciden?:', currentConversationId.current === message.conversation_id);
       
       if (currentConversationId.current === message.conversation_id) {
-        // console.log('✅ Actualizando cache de mensajes para conversación activa');
+        console.log('✅ Actualizando cache de mensajes para conversación activa');
         
         // Primero intentar actualizar el cache manualmente
         queryClient.setQueryData(
@@ -306,14 +306,14 @@ export const useChatSocket = (): ChatSocketHook => {
   // Métodos de interacción
   const joinConversation = (conversationId: string) => {
     if (socket) {
-      // console.log('🚪 Uniéndose a conversación:', conversationId);
-      // console.log('🔌 Socket conectado:', !!socket);
+      console.log('🚪 Uniéndose a conversación:', conversationId);
+      console.log('🔌 Socket conectado:', !!socket);
       currentConversationId.current = conversationId;
-      // console.log('🎯 currentConversationId establecido a:', currentConversationId.current);
+      console.log('🎯 currentConversationId establecido a:', currentConversationId.current);
       socket.emit('conversation:join', conversationId);
-      // console.log(`✅ Unido a conversación: ${conversationId}`);
+      console.log(`✅ Unido a conversación: ${conversationId}`);
     } else {
-      // console.log('❌ No se puede unir a conversación - socket no disponible');
+      console.log('❌ No se puede unir a conversación - socket no disponible');
     }
   };
 

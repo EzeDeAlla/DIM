@@ -18,6 +18,11 @@ export class MessageEventsPublisher {
       const conversationRoom = ROOM_NAMES.conversation(conversationId);
       const io = this.socketServer.getIO();
       
+      // Debug: verificar qué sockets están en el room
+      const roomSockets = io.sockets.adapter.rooms.get(conversationRoom);
+      console.log(`📤 Emitiendo mensaje ${message.id} a room ${conversationRoom}`);
+      console.log(`👥 Sockets en el room:`, roomSockets ? Array.from(roomSockets) : 'ninguno');
+      
       io.to(conversationRoom).emit(SERVER_EVENTS.MESSAGE_NEW, {
         id: message.id,
         conversation_id: message.conversation_id,
@@ -33,9 +38,9 @@ export class MessageEventsPublisher {
         },
       });
       
-      console.log(`Mensaje ${message.id} emitido a conversación ${conversationId}`);
+      console.log(`✅ Mensaje ${message.id} emitido a conversación ${conversationId}`);
     } catch (error) {
-      console.error('Error emitiendo nuevo mensaje:', error);
+      console.error('❌ Error emitiendo nuevo mensaje:', error);
     }
   }
 
