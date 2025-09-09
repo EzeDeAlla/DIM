@@ -83,4 +83,29 @@ export class MessageEventsPublisher {
       console.error('Error emitiendo confirmación de lectura:', error);
     }
   }
+
+  /**
+   * Emite notificación de nueva conversación a un usuario específico
+   */
+  emitNewConversation(userId: string, conversation: any): void {
+    try {
+      const userRoom = ROOM_NAMES.user(userId);
+      const io = this.socketServer.getIO();
+      
+      io.to(userRoom).emit(SERVER_EVENTS.CONVERSATION_CREATED, {
+        conversation: {
+          id: conversation.id,
+          title: conversation.title,
+          created_by: conversation.created_by,
+          is_group: conversation.is_group,
+          created_at: conversation.created_at,
+          updated_at: conversation.updated_at
+        }
+      });
+      
+      console.log(`📢 Nueva conversación ${conversation.id} notificada a usuario ${userId}`);
+    } catch (error) {
+      console.error('❌ Error emitiendo nueva conversación:', error);
+    }
+  }
 }

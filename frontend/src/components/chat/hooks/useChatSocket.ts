@@ -107,6 +107,17 @@ export const useChatSocket = (): ChatSocketHook => {
       setIsConnected(false);
     });
 
+    // Listener: conversation:created
+    socketInstance.on('conversation:created', (data: any) => {
+      console.log('🆕 Nueva conversación recibida:', data);
+      
+      // Invalidar el cache de conversaciones para refrescar la lista
+      queryClient.invalidateQueries({ queryKey: ['conversations'] });
+      queryClient.invalidateQueries({ queryKey: ['all-conversations'] });
+      
+      console.log('✅ Cache de conversaciones invalidado');
+    });
+
     // Listener: message:new
     socketInstance.on('message:new', (message: MessageNew) => {
       console.log('🆕 Nuevo mensaje recibido:', message);

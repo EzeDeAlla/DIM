@@ -7,6 +7,7 @@ import { ApiResponse } from '../interfaces/common';
 // Tipo extendido para crear conversación con participantes
 interface CreateConversationWithParticipants extends CreateConversation {
   participant_ids: string[];
+  created_by: string;
 }
 
 @injectable()
@@ -92,31 +93,28 @@ export class ConversationsService {
       const newConversation = await this.conversationsRepository.createConversation(data);
       
       // Agregar el creador como participante primero
-      console.log(`🔧 Agregando creador ${data.created_by} a conversación ${newConversation.id}`);
       try {
         await this.conversationsRepository.addParticipant({
           conversation_id: newConversation.id,
           user_id: data.created_by
         });
-        console.log(`✅ Creador ${data.created_by} agregado exitosamente`);
       } catch (error) {
-        console.error('❌ Error agregando creador:', error);
+        // Error agregando creador
       }
       
       // Agregar los demás participantes
-      console.log('🔧 Agregando participantes:', data.participant_ids);
       for (const participantId of data.participant_ids) {
         try {
-          console.log(`🔧 Agregando participante ${participantId} a conversación ${newConversation.id}`);
           await this.conversationsRepository.addParticipant({
             conversation_id: newConversation.id,
             user_id: participantId
           });
-          console.log(`✅ Participante ${participantId} agregado exitosamente`);
         } catch (error) {
-          console.error('❌ Error agregando participante:', error);
+          // Error agregando participante
         }
       }
+      
+      // TODO: Implementar notificación de nueva conversación cuando se resuelva la dependencia circular
       
       return {
         success: true,

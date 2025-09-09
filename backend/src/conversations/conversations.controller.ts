@@ -118,10 +118,10 @@ export class ConversationsController {
         return;
       }
 
-      // Crear objeto con participant_ids vacío por defecto
+      // Crear objeto con participant_ids del request o vacío por defecto
       const conversationWithParticipants = {
         ...conversationData,
-        participant_ids: []
+        participant_ids: conversationData.participant_ids || []
       };
 
       const result = await this.conversationsService.createConversation(conversationWithParticipants);

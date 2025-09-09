@@ -15,6 +15,8 @@ export const CreateConversationSchema = ConversationSchema.omit({
   id: true,
   created_at: true,
   updated_at: true,
+}).extend({
+  participant_ids: z.array(z.string().uuid()).optional().default([]),
 });
 
 // Schema para actualizar conversación

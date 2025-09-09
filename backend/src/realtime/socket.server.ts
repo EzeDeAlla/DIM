@@ -38,6 +38,11 @@ export class SocketServer {
     return new SocketServer(httpServer, container);
   }
 
+  // Método para configurar el MessageEventsPublisher
+  public configureMessagePublisher(messagePublisher: any): void {
+    messagePublisher.setSocketServer(this);
+  }
+
   private setupMiddleware(): void {
     // Aplicar guard de autenticación
     this.io.use(authGuard);
